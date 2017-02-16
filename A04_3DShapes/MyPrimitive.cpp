@@ -110,17 +110,19 @@ void MyPrimitive::GenerateCone(float a_fRadius, float a_fHeight, int a_nSubdivis
 	Init();
 
 	//Your code starts here
-	float fValue = 0.5f;
-	//3--2
-	//|  |
-	//0--1
-	vector3 point0(-fValue, -fValue, fValue); //0
-	vector3 point1(fValue, -fValue, fValue); //1
-	vector3 point2(fValue, fValue, fValue); //2
-	vector3 point3(-fValue, fValue, fValue); //3
+	float angle = 360 / a_nSubdivisions;
+	
+	for (float i = 0; i <= (360 - angle); i += angle) {
+		AddVertexPosition(vector3(a_fRadius * cos((i + angle) * PI / 180), 0, a_fRadius * sin((i + angle) * PI / 180)));
+		AddVertexPosition(vector3(0, 0, 0));
+		AddVertexPosition(vector3(a_fRadius * cos(i * PI / 180), 0, a_fRadius * sin(i * PI / 180)));
+	}
 
-	AddQuad(point0, point1, point3, point2);
-
+	for (float i = 0; i <= (360 - angle); i += angle) {
+		AddVertexPosition(vector3(a_fRadius * cos(i * PI / 180), 0, a_fRadius * sin(i * PI / 180)));
+		AddVertexPosition(vector3(0, a_fHeight, 0));
+		AddVertexPosition(vector3(a_fRadius * cos((i + angle) * PI / 180), 0, a_fRadius * sin((i + angle) * PI / 180)));
+	}
 	//Your code ends here
 	CompileObject(a_v3Color);
 }
@@ -135,16 +137,20 @@ void MyPrimitive::GenerateCylinder(float a_fRadius, float a_fHeight, int a_nSubd
 	Init();
 
 	//Your code starts here
-	float fValue = 0.5f;
-	//3--2
-	//|  |
-	//0--1
-	vector3 point0(-fValue, -fValue, fValue); //0
-	vector3 point1(fValue, -fValue, fValue); //1
-	vector3 point2(fValue, fValue, fValue); //2
-	vector3 point3(-fValue, fValue, fValue); //3
+	double angle = 360 / a_nSubdivisions;
 
-	AddQuad(point0, point1, point3, point2);
+	for (double i = 0; i <= (360 - angle); i += angle) {
+		AddVertexPosition(vector3(a_fRadius * cos(i * PI / 180), a_fHeight, a_fRadius * sin(i * PI / 180)));
+		AddVertexPosition(vector3(0, a_fHeight, 0));
+		AddVertexPosition(vector3(a_fRadius * cos((i + angle) * PI / 180), a_fHeight, a_fRadius * sin((i + angle) * PI / 180)));
+
+		AddVertexPosition(vector3(a_fRadius * cos((i + angle) * PI / 180), 0, a_fRadius * sin((i + angle) * PI / 180)));
+		AddVertexPosition(vector3(0, 0, 0));
+		AddVertexPosition(vector3(a_fRadius * cos(i * PI / 180), 0, a_fRadius * sin(i * PI / 180)));
+
+		AddQuad(vector3(a_fRadius * cos((i + angle) * PI / 180), 0, a_fRadius * sin((i + angle) * PI / 180)), vector3(a_fRadius * cos(i * PI / 180), 0, a_fRadius * sin(i * PI / 180)),
+			vector3(a_fRadius * cos((i + angle) * PI / 180), a_fHeight, a_fRadius * sin((i + angle) * PI / 180)), vector3(a_fRadius * cos(i * PI / 180), a_fHeight, a_fRadius * sin(i * PI / 180)));
+	}
 
 	//Your code ends here
 	CompileObject(a_v3Color);
@@ -160,16 +166,23 @@ void MyPrimitive::GenerateTube(float a_fOuterRadius, float a_fInnerRadius, float
 	Init();
 
 	//Your code starts here
-	float fValue = 0.5f;
-	//3--2
-	//|  |
-	//0--1
-	vector3 point0(-fValue, -fValue, fValue); //0
-	vector3 point1(fValue, -fValue, fValue); //1
-	vector3 point2(fValue, fValue, fValue); //2
-	vector3 point3(-fValue, fValue, fValue); //3
+	float angle = 360 / a_nSubdivisions;
 
-	AddQuad(point0, point1, point3, point2);
+	for (float i = 0; i <= (360 - angle); i += angle) {
+		//Bottom
+		AddQuad(vector3(a_fInnerRadius * cos((i + angle) * PI / 180), 0, a_fInnerRadius * sin((i + angle) * PI / 180)), vector3(a_fInnerRadius * cos(i * PI / 180), 0, a_fInnerRadius * sin(i * PI / 180)),
+			vector3(a_fOuterRadius * cos((i + angle) * PI / 180), 0, a_fOuterRadius * sin((i + angle) * PI / 180)),vector3(a_fOuterRadius * cos(i * PI / 180), 0, a_fOuterRadius * sin(i * PI / 180)));
+		//Outer Wall
+		AddQuad(vector3(a_fOuterRadius * cos((i + angle) * PI / 180), 0, a_fOuterRadius * sin((i + angle) * PI / 180)), vector3(a_fOuterRadius * cos(i * PI / 180), 0, a_fOuterRadius * sin(i * PI / 180)),
+			vector3(a_fOuterRadius * cos((i + angle) * PI / 180), a_fHeight, a_fOuterRadius * sin((i + angle) * PI / 180)), vector3(a_fOuterRadius * cos(i * PI / 180), a_fHeight, a_fOuterRadius * sin(i * PI / 180)));
+		//Inner Wall
+		AddQuad(vector3(a_fInnerRadius * cos(i * PI / 180), 0, a_fInnerRadius * sin(i * PI / 180)), vector3(a_fInnerRadius * cos((i + angle) * PI / 180), 0, a_fInnerRadius * sin((i + angle) * PI / 180)),
+			vector3(a_fInnerRadius * cos(i * PI / 180), a_fHeight, a_fInnerRadius * sin(i * PI / 180)), vector3(a_fInnerRadius * cos((i + angle) * PI / 180), a_fHeight, a_fInnerRadius * sin((i + angle) * PI / 180)));
+		//Top
+		AddQuad(vector3(a_fInnerRadius * cos(i * PI / 180), a_fHeight, a_fInnerRadius * sin(i * PI / 180)), vector3(a_fInnerRadius * cos((i + angle) * PI / 180), a_fHeight, a_fInnerRadius * sin((i + angle) * PI / 180)),
+			vector3(a_fOuterRadius * cos(i * PI / 180), a_fHeight, a_fOuterRadius * sin(i * PI / 180)), vector3(a_fOuterRadius * cos((i + angle) * PI / 180), a_fHeight, a_fOuterRadius * sin((i + angle) * PI / 180)));
+
+	}
 
 	//Your code ends here
 	CompileObject(a_v3Color);
@@ -193,17 +206,11 @@ void MyPrimitive::GenerateTorus(float a_fOuterRadius, float a_fInnerRadius, int 
 	Init();
 
 	//Your code starts here
-	float fValue = 0.5f;
-	//3--2
-	//|  |
-	//0--1
-	vector3 point0(-fValue, -fValue, fValue); //0
-	vector3 point1(fValue, -fValue, fValue); //1
-	vector3 point2(fValue, fValue, fValue); //2
-	vector3 point3(-fValue, fValue, fValue); //3
+	float angle = 360 / a_nSubdivisionsA;
+	float angle2 = 360 / a_nSubdivisionsB;
+	float inRadius = (a_fInnerRadius + a_fOuterRadius) / 2;
 
-	AddQuad(point0, point1, point3, point2);
-
+	//((inRadius * cos(i * PI / 180)) + ,, (inRadius * sin(i * PI / 180)))
 	//Your code ends here
 	CompileObject(a_v3Color);
 }
@@ -222,16 +229,19 @@ void MyPrimitive::GenerateSphere(float a_fRadius, int a_nSubdivisions, vector3 a
 	Init();
 
 	//Your code starts here
-	float fValue = 0.5f;
-	//3--2
-	//|  |
-	//0--1
-	vector3 point0(-fValue, -fValue, fValue); //0
-	vector3 point1(fValue, -fValue, fValue); //1
-	vector3 point2(fValue, fValue, fValue); //2
-	vector3 point3(-fValue, fValue, fValue); //3
+	float angle = 360 / a_nSubdivisions;
+	
+	for (int i = 0; i <= (360 - angle); i += angle) {
+		for (int j = 0; j <= (360 - angle); j += angle) {
+			AddQuad(
+				vector3(a_fRadius * cos((i + angle) * PI / 180)* sin((i + angle) * PI / 180), a_fRadius * sin((i + angle) * PI / 180)* sin((i + angle) * PI / 180), a_fRadius * cos((i + angle) * PI / 180)), 
+				vector3(a_fRadius * cos((i + angle) * PI / 180)* sin((i + angle) * PI / 180), a_fRadius * sin((i + angle) * PI / 180)* sin((i + angle) * PI / 180), a_fRadius * cos((i + angle) * PI / 180)),
+				vector3(a_fRadius * cos((i + angle) * PI / 180)* sin((i + angle) * PI / 180), a_fRadius * sin((i + angle) * PI / 180)* sin((i + angle) * PI / 180), a_fRadius * cos((i + angle) * PI / 180)), 
+				vector3(a_fRadius * cos((i + angle) * PI / 180)* sin((i + angle) * PI / 180), a_fRadius * sin((i + angle) * PI / 180)* sin((i + angle) * PI / 180), a_fRadius * cos((i + angle) * PI / 180))
+			);
+		}
+	}
 
-	AddQuad(point0, point1, point3, point2);
 
 	//Your code ends here
 	CompileObject(a_v3Color);
