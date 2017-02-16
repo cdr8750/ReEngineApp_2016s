@@ -137,9 +137,9 @@ void MyPrimitive::GenerateCylinder(float a_fRadius, float a_fHeight, int a_nSubd
 	Init();
 
 	//Your code starts here
-	double angle = 360 / a_nSubdivisions;
+	float angle = 360 / (float)a_nSubdivisions;
 
-	for (double i = 0; i <= (360 - angle); i += angle) {
+	for (float i = 0; i <= (360 - angle); i += angle) {
 		AddVertexPosition(vector3(a_fRadius * cos(i * PI / 180), a_fHeight, a_fRadius * sin(i * PI / 180)));
 		AddVertexPosition(vector3(0, a_fHeight, 0));
 		AddVertexPosition(vector3(a_fRadius * cos((i + angle) * PI / 180), a_fHeight, a_fRadius * sin((i + angle) * PI / 180)));
@@ -166,7 +166,7 @@ void MyPrimitive::GenerateTube(float a_fOuterRadius, float a_fInnerRadius, float
 	Init();
 
 	//Your code starts here
-	float angle = 360 / a_nSubdivisions;
+	float angle = 360 / (float)a_nSubdivisions;
 
 	for (float i = 0; i <= (360 - angle); i += angle) {
 		//Bottom
@@ -206,10 +206,18 @@ void MyPrimitive::GenerateTorus(float a_fOuterRadius, float a_fInnerRadius, int 
 	Init();
 
 	//Your code starts here
-	float angle = 360 / a_nSubdivisionsA;
-	float angle2 = 360 / a_nSubdivisionsB;
-	float inRadius = (a_fInnerRadius + a_fOuterRadius) / 2;
+	float angle = 360 / (float)a_nSubdivisionsA;
+	float angle2 = 360 / (float)a_nSubdivisionsB;
+	float inRadius = (float)(a_fInnerRadius + a_fOuterRadius) / 2;
+	float cekRadius = (float)(a_fOuterRadius + a_fInnerRadius) / 2;
 
+	for (float i = 0; i <= 360 - angle; i += angle) {
+		for (float j = 0; j <= 360 - angle2; j += angle2) {
+			AddVertexPosition(vector3((inRadius * cos(i * PI / 180)) + (cekRadius * cos(j * PI / 180)), (inRadius * sin(i * PI / 180)) + (cekRadius * sin(j * PI / 180)), inRadius * sin(i * PI / 180)));
+			AddVertexPosition(vector3(inRadius * cos(i * PI / 180), 0, inRadius * sin(i * PI / 180)));
+			AddVertexPosition(vector3((inRadius * cos(i * PI / 180)) + (cekRadius * cos((j + angle2)* PI / 180)), (inRadius * cos(i * PI / 180)) + (cekRadius * sin((j + angle2) * PI / 180)), inRadius * sin(i * PI / 180)));
+		}
+	}
 	//((inRadius * cos(i * PI / 180)) + ,, (inRadius * sin(i * PI / 180)))
 	//Your code ends here
 	CompileObject(a_v3Color);
@@ -229,10 +237,10 @@ void MyPrimitive::GenerateSphere(float a_fRadius, int a_nSubdivisions, vector3 a
 	Init();
 
 	//Your code starts here
-	float angle = 360 / a_nSubdivisions;
+	float angle = 360 / (float)a_nSubdivisions;
 	
-	for (int i = 0; i <= (360 - angle); i += angle) {
-		for (int j = 0; j <= (360 - angle); j += angle) {
+	for (float i = 0; i <= (360 - angle); i += angle) {
+		for (float j = 0; j <= (360 - angle); j += angle) {
 			AddQuad(
 				vector3(a_fRadius * cos((i + angle) * PI / 180)* sin((i + angle) * PI / 180), a_fRadius * sin((i + angle) * PI / 180)* sin((i + angle) * PI / 180), a_fRadius * cos((i + angle) * PI / 180)), 
 				vector3(a_fRadius * cos((i + angle) * PI / 180)* sin((i + angle) * PI / 180), a_fRadius * sin((i + angle) * PI / 180)* sin((i + angle) * PI / 180), a_fRadius * cos((i + angle) * PI / 180)),
