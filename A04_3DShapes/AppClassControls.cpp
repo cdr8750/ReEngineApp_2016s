@@ -53,8 +53,8 @@ void AppClass::ProcessKeyboard(void)
 	ON_KEY_PRESS_RELEASE(F5, NULL, m_pPrimitive->GenerateCone(1.0f, 1.0f, 12, REGREEN));
 	ON_KEY_PRESS_RELEASE(F6, NULL, m_pPrimitive->GenerateCylinder(1.0f, 2.0f, 7, REBLUE));
 	ON_KEY_PRESS_RELEASE(F7, NULL, m_pPrimitive->GenerateTube(1.0f, 0.7f, 2.0f, 7, REYELLOW));
-	//ON_KEY_PRESS_RELEASE(F8, NULL, m_pPrimitive->GenerateSphere(1.0f, 3, RERED));
-	ON_KEY_PRESS_RELEASE(F8, NULL, m_pPrimitive->GenerateTorus(1.0f, 0.7f, 7, 7, RERED));
+	ON_KEY_PRESS_RELEASE(F8, NULL, m_pPrimitive->GenerateSphere(1.0f, 20, RERED));
+	ON_KEY_PRESS_RELEASE(F10, NULL, m_pPrimitive->GenerateTorus(1.0f, 0.7f, 12, 12, REPURPLE));
 	ON_KEY_PRESS_RELEASE(F9, NULL, m_pPrimitive->GenerateCube(1.0f, REWHITE));
 
 	static bool bFPSControll = false;

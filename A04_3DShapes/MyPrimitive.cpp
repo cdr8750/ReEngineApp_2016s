@@ -110,18 +110,19 @@ void MyPrimitive::GenerateCone(float a_fRadius, float a_fHeight, int a_nSubdivis
 	Init();
 
 	//Your code starts here
-	float angle = 360 / a_nSubdivisions;
+	float angle = (float)(2 * PI) / a_nSubdivisions;
+	float centeringHeight = a_fHeight / (float)2;
 	
-	for (float i = 0; i <= (360 - angle); i += angle) {
-		AddVertexPosition(vector3(a_fRadius * cos((i + angle) * PI / 180), 0, a_fRadius * sin((i + angle) * PI / 180)));
-		AddVertexPosition(vector3(0, 0, 0));
-		AddVertexPosition(vector3(a_fRadius * cos(i * PI / 180), 0, a_fRadius * sin(i * PI / 180)));
+	for (float i = 0; i <= ((2*PI) - angle); i += angle) {
+		AddVertexPosition(vector3(a_fRadius * cos(i + angle), -centeringHeight, a_fRadius * sin(i + angle)));
+		AddVertexPosition(vector3(0, -centeringHeight, 0));
+		AddVertexPosition(vector3(a_fRadius * cos(i), -centeringHeight, a_fRadius * sin(i)));
 	}
 
-	for (float i = 0; i <= (360 - angle); i += angle) {
-		AddVertexPosition(vector3(a_fRadius * cos(i * PI / 180), 0, a_fRadius * sin(i * PI / 180)));
-		AddVertexPosition(vector3(0, a_fHeight, 0));
-		AddVertexPosition(vector3(a_fRadius * cos((i + angle) * PI / 180), 0, a_fRadius * sin((i + angle) * PI / 180)));
+	for (float i = 0; i <= ((2*PI) - angle); i += angle) {
+		AddVertexPosition(vector3(a_fRadius * cos(i), -centeringHeight, a_fRadius * sin(i)));
+		AddVertexPosition(vector3(0, centeringHeight, 0));
+		AddVertexPosition(vector3(a_fRadius * cos(i + angle), -centeringHeight, a_fRadius * sin(i + angle)));
 	}
 	//Your code ends here
 	CompileObject(a_v3Color);
@@ -137,19 +138,20 @@ void MyPrimitive::GenerateCylinder(float a_fRadius, float a_fHeight, int a_nSubd
 	Init();
 
 	//Your code starts here
-	float angle = 360 / (float)a_nSubdivisions;
+	float angle = (float)(2*PI) / a_nSubdivisions;
+	float centeringHeight = a_fHeight / (float)2;
 
-	for (float i = 0; i <= (360 - angle); i += angle) {
-		AddVertexPosition(vector3(a_fRadius * cos(i * PI / 180), a_fHeight, a_fRadius * sin(i * PI / 180)));
-		AddVertexPosition(vector3(0, a_fHeight, 0));
-		AddVertexPosition(vector3(a_fRadius * cos((i + angle) * PI / 180), a_fHeight, a_fRadius * sin((i + angle) * PI / 180)));
+	for (float i = 0; i <= ((2*PI) - angle); i += angle) {
+		AddVertexPosition(vector3(a_fRadius * cos(i), centeringHeight, a_fRadius * sin(i)));
+		AddVertexPosition(vector3(0, centeringHeight, 0));
+		AddVertexPosition(vector3(a_fRadius * cos(i + angle), centeringHeight, a_fRadius * sin(i + angle)));
 
-		AddVertexPosition(vector3(a_fRadius * cos((i + angle) * PI / 180), 0, a_fRadius * sin((i + angle) * PI / 180)));
-		AddVertexPosition(vector3(0, 0, 0));
-		AddVertexPosition(vector3(a_fRadius * cos(i * PI / 180), 0, a_fRadius * sin(i * PI / 180)));
+		AddVertexPosition(vector3(a_fRadius * cos(i + angle), -centeringHeight, a_fRadius * sin(i + angle)));
+		AddVertexPosition(vector3(0, -centeringHeight, 0));
+		AddVertexPosition(vector3(a_fRadius * cos(i), -centeringHeight, a_fRadius * sin(i)));
 
-		AddQuad(vector3(a_fRadius * cos((i + angle) * PI / 180), 0, a_fRadius * sin((i + angle) * PI / 180)), vector3(a_fRadius * cos(i * PI / 180), 0, a_fRadius * sin(i * PI / 180)),
-			vector3(a_fRadius * cos((i + angle) * PI / 180), a_fHeight, a_fRadius * sin((i + angle) * PI / 180)), vector3(a_fRadius * cos(i * PI / 180), a_fHeight, a_fRadius * sin(i * PI / 180)));
+		AddQuad(vector3(a_fRadius * cos(i + angle), -centeringHeight, a_fRadius * sin(i + angle)), vector3(a_fRadius * cos(i), -centeringHeight, a_fRadius * sin(i)),
+			vector3(a_fRadius * cos(i + angle), centeringHeight, a_fRadius * sin(i + angle)), vector3(a_fRadius * cos(i), centeringHeight, a_fRadius * sin(i )));
 	}
 
 	//Your code ends here
@@ -166,21 +168,22 @@ void MyPrimitive::GenerateTube(float a_fOuterRadius, float a_fInnerRadius, float
 	Init();
 
 	//Your code starts here
-	float angle = 360 / (float)a_nSubdivisions;
+	float angle = (float)(2 * PI) / a_nSubdivisions;
+	float centeringHeight = a_fHeight / (float)2;
 
-	for (float i = 0; i <= (360 - angle); i += angle) {
+	for (float i = 0; i <= ((2*PI) - angle); i += angle) {
 		//Bottom
-		AddQuad(vector3(a_fInnerRadius * cos((i + angle) * PI / 180), 0, a_fInnerRadius * sin((i + angle) * PI / 180)), vector3(a_fInnerRadius * cos(i * PI / 180), 0, a_fInnerRadius * sin(i * PI / 180)),
-			vector3(a_fOuterRadius * cos((i + angle) * PI / 180), 0, a_fOuterRadius * sin((i + angle) * PI / 180)),vector3(a_fOuterRadius * cos(i * PI / 180), 0, a_fOuterRadius * sin(i * PI / 180)));
+		AddQuad(vector3(a_fInnerRadius * cos(i + angle), -centeringHeight, a_fInnerRadius * sin(i + angle)), vector3(a_fInnerRadius * cos(i), -centeringHeight, a_fInnerRadius * sin(i)),
+			vector3(a_fOuterRadius * cos(i + angle), -centeringHeight, a_fOuterRadius * sin(i + angle)),vector3(a_fOuterRadius * cos(i), -centeringHeight, a_fOuterRadius * sin(i)));
 		//Outer Wall
-		AddQuad(vector3(a_fOuterRadius * cos((i + angle) * PI / 180), 0, a_fOuterRadius * sin((i + angle) * PI / 180)), vector3(a_fOuterRadius * cos(i * PI / 180), 0, a_fOuterRadius * sin(i * PI / 180)),
-			vector3(a_fOuterRadius * cos((i + angle) * PI / 180), a_fHeight, a_fOuterRadius * sin((i + angle) * PI / 180)), vector3(a_fOuterRadius * cos(i * PI / 180), a_fHeight, a_fOuterRadius * sin(i * PI / 180)));
+		AddQuad(vector3(a_fOuterRadius * cos(i + angle), -centeringHeight, a_fOuterRadius * sin(i + angle)), vector3(a_fOuterRadius * cos(i), -centeringHeight, a_fOuterRadius * sin(i)),
+			vector3(a_fOuterRadius * cos(i + angle), centeringHeight, a_fOuterRadius * sin(i + angle)), vector3(a_fOuterRadius * cos(i), centeringHeight, a_fOuterRadius * sin(i)));
 		//Inner Wall
-		AddQuad(vector3(a_fInnerRadius * cos(i * PI / 180), 0, a_fInnerRadius * sin(i * PI / 180)), vector3(a_fInnerRadius * cos((i + angle) * PI / 180), 0, a_fInnerRadius * sin((i + angle) * PI / 180)),
-			vector3(a_fInnerRadius * cos(i * PI / 180), a_fHeight, a_fInnerRadius * sin(i * PI / 180)), vector3(a_fInnerRadius * cos((i + angle) * PI / 180), a_fHeight, a_fInnerRadius * sin((i + angle) * PI / 180)));
+		AddQuad(vector3(a_fInnerRadius * cos(i), -centeringHeight, a_fInnerRadius * sin(i)), vector3(a_fInnerRadius * cos(i + angle), -centeringHeight, a_fInnerRadius * sin(i + angle)),
+			vector3(a_fInnerRadius * cos(i), centeringHeight, a_fInnerRadius * sin(i)), vector3(a_fInnerRadius * cos(i + angle), centeringHeight, a_fInnerRadius * sin(i + angle)));
 		//Top
-		AddQuad(vector3(a_fInnerRadius * cos(i * PI / 180), a_fHeight, a_fInnerRadius * sin(i * PI / 180)), vector3(a_fInnerRadius * cos((i + angle) * PI / 180), a_fHeight, a_fInnerRadius * sin((i + angle) * PI / 180)),
-			vector3(a_fOuterRadius * cos(i * PI / 180), a_fHeight, a_fOuterRadius * sin(i * PI / 180)), vector3(a_fOuterRadius * cos((i + angle) * PI / 180), a_fHeight, a_fOuterRadius * sin((i + angle) * PI / 180)));
+		AddQuad(vector3(a_fInnerRadius * cos(i), centeringHeight, a_fInnerRadius * sin(i)), vector3(a_fInnerRadius * cos(i + angle), centeringHeight, a_fInnerRadius * sin(i + angle)),
+			vector3(a_fOuterRadius * cos(i), centeringHeight, a_fOuterRadius * sin(i)), vector3(a_fOuterRadius * cos(i + angle), centeringHeight, a_fOuterRadius * sin(i + angle)));
 
 	}
 
@@ -206,19 +209,22 @@ void MyPrimitive::GenerateTorus(float a_fOuterRadius, float a_fInnerRadius, int 
 	Init();
 
 	//Your code starts here
-	float angle = 360 / (float)a_nSubdivisionsA;
-	float angle2 = 360 / (float)a_nSubdivisionsB;
+	float angle = (float)(2 * PI) / a_nSubdivisionsA;
+	float angle2 = (float)(2 * PI) / a_nSubdivisionsB;
 	float inRadius = (float)(a_fInnerRadius + a_fOuterRadius) / 2;
-	float cekRadius = (float)(a_fOuterRadius + a_fInnerRadius) / 2;
+	float torRadius = (float)(a_fOuterRadius - a_fInnerRadius) / 2;
 
-	for (float i = 0; i <= 360 - angle; i += angle) {
-		for (float j = 0; j <= 360 - angle2; j += angle2) {
-			AddVertexPosition(vector3((inRadius * cos(i * PI / 180)) + (cekRadius * cos(j * PI / 180)), (inRadius * sin(i * PI / 180)) + (cekRadius * sin(j * PI / 180)), inRadius * sin(i * PI / 180)));
-			AddVertexPosition(vector3(inRadius * cos(i * PI / 180), 0, inRadius * sin(i * PI / 180)));
-			AddVertexPosition(vector3((inRadius * cos(i * PI / 180)) + (cekRadius * cos((j + angle2)* PI / 180)), (inRadius * cos(i * PI / 180)) + (cekRadius * sin((j + angle2) * PI / 180)), inRadius * sin(i * PI / 180)));
+	for (float i = 0; i <= (2*PI); i += angle) {
+		for (float j = 0; j <= (2*PI); j += angle2) {
+			AddQuad(
+				vector3((inRadius + (torRadius * cos(i + angle))) * cos(j + angle2), torRadius * sin(i + angle), (inRadius + (torRadius * cos(i + angle))) * sin(j + angle2)),
+				vector3((inRadius + (torRadius * cos(i))) * cos(j + angle2),  torRadius * sin(i), (inRadius + (torRadius * cos(i))) * sin(j + angle2)),
+				
+				vector3((inRadius + (torRadius * cos(i + angle))) * cos(j), torRadius * sin(i + angle), (inRadius + (torRadius * cos(i + angle))) * sin(j)),
+				vector3((inRadius + (torRadius * cos(i))) * cos(j), torRadius * sin(i), (inRadius + (torRadius * cos(i))) * sin(j))
+				);
 		}
 	}
-	//((inRadius * cos(i * PI / 180)) + ,, (inRadius * sin(i * PI / 180)))
 	//Your code ends here
 	CompileObject(a_v3Color);
 }
@@ -230,22 +236,24 @@ void MyPrimitive::GenerateSphere(float a_fRadius, int a_nSubdivisions, vector3 a
 		GenerateCube(a_fRadius * 2, a_v3Color);
 		return;
 	}
-	if (a_nSubdivisions > 6)
-		a_nSubdivisions = 6;
+	if (a_nSubdivisions > 20)
+		a_nSubdivisions = 20;
 
 	Release();
 	Init();
 
 	//Your code starts here
-	float angle = 360 / (float)a_nSubdivisions;
+	float angle = (float)(2 * PI) / a_nSubdivisions;
+	float angle2 = (float)PI / (a_nSubdivisions / 2);
 	
-	for (float i = 0; i <= (360 - angle); i += angle) {
-		for (float j = 0; j <= (360 - angle); j += angle) {
+	for (float i = 0; i <= (2*PI); i += angle) {
+		for (float j = 0; j <= (PI); j += angle2) {
 			AddQuad(
-				vector3(a_fRadius * cos((i + angle) * PI / 180)* sin((i + angle) * PI / 180), a_fRadius * sin((i + angle) * PI / 180)* sin((i + angle) * PI / 180), a_fRadius * cos((i + angle) * PI / 180)), 
-				vector3(a_fRadius * cos((i + angle) * PI / 180)* sin((i + angle) * PI / 180), a_fRadius * sin((i + angle) * PI / 180)* sin((i + angle) * PI / 180), a_fRadius * cos((i + angle) * PI / 180)),
-				vector3(a_fRadius * cos((i + angle) * PI / 180)* sin((i + angle) * PI / 180), a_fRadius * sin((i + angle) * PI / 180)* sin((i + angle) * PI / 180), a_fRadius * cos((i + angle) * PI / 180)), 
-				vector3(a_fRadius * cos((i + angle) * PI / 180)* sin((i + angle) * PI / 180), a_fRadius * sin((i + angle) * PI / 180)* sin((i + angle) * PI / 180), a_fRadius * cos((i + angle) * PI / 180))
+				vector3(a_fRadius * cos(i + angle)* sin(j), a_fRadius * sin(i + angle)* sin(j), a_fRadius * cos(j)),
+				vector3(a_fRadius * cos(i)* sin(j), a_fRadius * sin(i)* sin(j), a_fRadius * cos(j)),
+
+				vector3(a_fRadius * cos(i + angle)* sin(j + angle2), a_fRadius * sin(i + angle)* sin(j + angle2), a_fRadius * cos(j + angle2)),
+				vector3(a_fRadius * cos(i)* sin(j + angle2), a_fRadius * sin(i)* sin(j + angle2), a_fRadius * cos(j + angle2))
 			);
 		}
 	}
