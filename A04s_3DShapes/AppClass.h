@@ -15,6 +15,8 @@ class AppClass : public ReEngAppClass
 {
 	MyPrimitive* m_pPrimitive = nullptr;
 public:
+	glm::mat4 m_m4Transform;
+
 	typedef ReEngAppClass super;
 	/*
 	USAGE: Constructor
