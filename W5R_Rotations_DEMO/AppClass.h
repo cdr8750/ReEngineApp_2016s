@@ -1,6 +1,6 @@
 /*----------------------------------------------
 Programmer: Alberto Bobadilla (labigm@gmail.com)
-Date: 2015/09
+Date: 2015/09 (Last Modified on: 15/11)
 ----------------------------------------------*/
 #ifndef __APPLICATION_H_
 #define __APPLICATION_H_
@@ -12,26 +12,14 @@ using namespace ReEng; //Using ReEng namespace to use all the classes in the dll
 
 class AppClass : public ReEngAppClass
 {
-	PrimitiveClass* m_pSun = nullptr;// Sun's mesh
-	PrimitiveClass* m_pEarth = nullptr;// Earth mesh
-	PrimitiveClass* m_pMoon = nullptr;// Moon's mesh
-
-	matrix4 m_m4Sun;// Matrix for the Sun
-	matrix4 m_m4Earth;// Matrix for the Earth
-	matrix4 m_m4Moon;// Matrix for the Moon
-
-	float m_fEarthTimer = 0; //Will count the cycles we are RE_RUNNING
-	float m_fMoonTimer = 0; //Will count the cycles the moon is RE_RUNNING
-
-	vector3 sunPos = vector3(0.0f, 0.0f, 0.0f); //Holds position of the sun for movement
-	//matrix4 m_m4Orientation;
-	//vector3 v3Orientation;
-
+	matrix4 m_m4Steve;
+	vector3 m_v3Orientation = vector3(0.0f,0.0f,0.0f);
 public:
 	typedef ReEngAppClass super;
+
 	/*
 	USAGE: Constructor
-	ARGUMENTS:
+	ARGUMENTS: 
 	- HINSTANCE hInstance -> Instance of the window
 	- LPWSTR lpCmdLine -> Command line
 	- int nCmdShow -> Number or arguments
@@ -102,5 +90,9 @@ public:
 	*/
 	virtual void Release(void) final;
 };
-
+/*
+USAGE:
+ARGUMENTS: ---
+OUTPUT: ---
+*/
 #endif //__APPLICATION_H_
