@@ -24,7 +24,7 @@ void AppClass::Update(void)
 
 	//Update the mesh manager's time without updating for collision detection
 	m_pMeshMngr->Update();
-#pragma region
+#pragma endregion
 
 #pragma region Does not need changes but feel free to change anything here
 	//Lets us know how much time has passed since the last call
@@ -36,27 +36,64 @@ void AppClass::Update(void)
 #pragma endregion
 
 #pragma region Your Code goes here
-	static float fTimer = 0.0f;
+	float fTimer;
+
 	//print information
 	m_pMeshMngr->PrintLine("");
+
+	//Timer
 	static DWORD timerSinceBoot = GetTickCount();
 	DWORD timerSinceStart = GetTickCount() - timerSinceBoot;
 	fTimer = timerSinceStart / (float)1000;
 	m_pMeshMngr->PrintLine(std::to_string(fTimer));
-	//fTimer += 0.016; 60 Frames per Second
 
-	vector3 v3Position = vector3(1, 0, 0);
+	//Array of points to cycle through
+	vector3 points[] = {vector3(-4.0f, -2.0f, 5.0f),
+					vector3(1.0f, -2.0f, 5.0f),
+					vector3(-3.0f, -1.0f, 3.0f),
+					vector3(2.0f, -1.0f, 3.0f),
+					vector3(-2.0f, 0.0f, 0.0f),
+					vector3(3.0f, 0.0f, 0.0f),
+					vector3(-1.0f, 1.0f, -3.0f),
+					vector3(4.0f, 1.0f, -3.0f),
+					vector3(0.0f, 2.0f, -5.0f),
+					vector3(5.0f, 2.0f, -5.0f),
+					vector3(1.0f, 3.0f, -5.0f)};
 
-	matrix4 m4SpherePosition = glm::translate(v3Position) * glm::scale(vector3(0.35));
-	m_pMeshMngr->AddSphereToRenderList(m4SpherePosition, RERED, WIRE);
+	//Creates red spheres to mark points
+	for (int i = 0; i < 10; i++) {
+		matrix4 m4SpherePosition = glm::translate(points[i]) * glm::scale(vector3(0.1));
+		m_pMeshMngr->AddSphereToRenderList(m4SpherePosition, RERED, WIRE);
+	};
 
-	vector3 v3Start = vector3(-5, 0, 0);
-	vector3 v3End = vector3(5, 0, 0);
-	float percentage = MapValue(fTimer, 0.0f, 5.0f, 0.0f, 1.0f);
+	//Index for points that the models is at and will travel to
+	static int currentPosition = 0;
+	static int futurePosition = 1;
+
+	//Vector 3 points for model movement
+	vector3 v3Start = points[currentPosition];
+	vector3 v3End = points[futurePosition];
+
+	//Finds percentage for LERP calculation and creates LERP vector for translation
+	float percentage = MapValue(fTimer, 0.0f, 3.0f, 0.0f, 1.0f);
 	vector3 current = glm::lerp(v3Start, v3End, percentage);
 
-	matrix4 m4Creeper = glm::translate(current);
-	m_pMeshMngr->SetModelMatrix(m4Creeper, "Walleye");
+	//Moves model using LERP vector
+	matrix4 m4Mover = glm::translate(current);
+	m_pMeshMngr->SetModelMatrix(m4Mover, "Walleye");
+
+	//Changes indexes and resets timer when a point is reached
+	if (current == v3End) {
+		currentPosition++;
+		futurePosition++;
+		if (futurePosition >= 10) {
+			futurePosition = 0;
+		};
+		if (currentPosition >= 10) {
+			currentPosition = 0;
+		};
+		timerSinceBoot = GetTickCount();
+	};
 #pragma endregion
 
 #pragma region Does not need changes but feel free to change anything here

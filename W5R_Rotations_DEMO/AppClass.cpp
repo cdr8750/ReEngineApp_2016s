@@ -22,7 +22,7 @@ void AppClass::InitVariables(void)
 		vector3(0.0f, 2.5f, 0.0f),//What Im looking at
 		REAXISY);//What is up
 	//Load a model onto the Mesh manager
-	m_pMeshMngr->LoadModel("Minecraft\\Steve.obj", "Steve");
+	m_pMeshMngr->LoadModel("Minecraft\\Creeper.obj", "Creeper");
 }
 
 void AppClass::Update(void)
@@ -43,12 +43,27 @@ void AppClass::Update(void)
 	//Set the model matrix for the first model to be the arcball
 	//m_pMeshMngr->SetModelMatrix(ToMatrix4(m_qArcBall), 0);
 
+	static float fTimer = 0.0f;
+	fTimer = +m_pSystem->LapClock();
+	float fDuration = 5.0f;
+	float fPercentagte = MapValue(fTimer, 0.0f, fDuration, 0.0f, 1.0f);
+
+	glm::quat q1 = glm::quat(0.7f, 0.0f, 0.0f, 0.7f);
+	quaternion q2 = glm::quat(vector3(0.0f, 0.0f, glm::radians(90.0f)));
+	quaternion q3 = glm::angleAxis(90.0f, vector3(1.0f, 0.0f, 0.0f));
+	quaternion q4 = q3 * q2;
+	quaternion q5 = glm::mix(q3, q2, fTimer / 2.0f);
+	
+	//fTimer += 0.01f;
+
+	m_pMeshMngr->SetModelMatrix(ToMatrix4(q4), "Creeper");
+
 	//m_m4Steve = glm::scale(m_m4Steve, vector3(1.01f, 1.01f, 1.01f));
 	//m_m4Steve = glm::rotate(m_m4Steve, 1.0f, vector3(0.0f, 1.0f, 0.0f));
 	m_m4Steve = glm::rotate(IDENTITY_M4, m_v3Orientation.x, vector3(1.0f, 0.0f, 0.0f));
 	m_m4Steve = glm::rotate(m_m4Steve, m_v3Orientation.y, vector3(0.0f, 1.0f, 0.0f));
 	m_m4Steve = glm::rotate(m_m4Steve, m_v3Orientation.z, vector3(0.0f, 0.0f, 1.0f));
-	m_pMeshMngr->SetModelMatrix(m_m4Steve, "Steve");
+	//m_pMeshMngr->SetModelMatrix(m_m4Steve, "Steve");
 
 	//Adds all loaded instance to the render list
 	m_pMeshMngr->AddSkyboxToRenderList();
@@ -59,10 +74,10 @@ void AppClass::Update(void)
 	//print info into the console
 	//printf("FPS: %d            \r", nFPS);//print the Frames per Second
 	//Print info on the screen
-<<<<<<< HEAD
-=======
+//<<<<<<< HEAD
+//=======
 	m_pMeshMngr->PrintLine("");
->>>>>>> d8eda33aa6d12cbf7e14147db00d4a8e46d8a8a7
+//>>>>>>> d8eda33aa6d12cbf7e14147db00d4a8e46d8a8a7
 	m_pMeshMngr->PrintLine(m_pSystem->GetAppName(), REYELLOW);
 
 	m_pMeshMngr->Print("Selection: ");
