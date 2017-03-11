@@ -14,11 +14,18 @@ using namespace ReEng; //Using ReEng namespace to use all the classes in the dll
 class AppClass : public ReEngAppClass
 {
 public:
+
+	//STORE rotation angles
+	float x;
+	float y;
+	float z;
+
+
 	typedef ReEngAppClass super;
 
-	matrix4 m_mToWorld;
+	glm::quat m_mToWorld;
 
-	vector3 m_v3Orientation;
+	//vector3 m_v3Orientation;
 
 	/* Constructor */
 	AppClass(HINSTANCE hInstance, LPWSTR lpCmdLine, int nCmdShow) : super(hInstance, lpCmdLine, nCmdShow) {}

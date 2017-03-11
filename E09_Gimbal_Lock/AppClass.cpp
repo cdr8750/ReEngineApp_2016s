@@ -11,6 +11,11 @@ void AppClass::InitVariables(void)
 
 	//Set the axis of Steve visible
 	m_pMeshMngr->SetVisibleAxis(true, "Steve");
+
+	//Set rotation angles
+	x = 0.0f;
+	y = 0.0f;
+	z = 0.0f;
 }
 
 void AppClass::Update(void)
@@ -26,15 +31,15 @@ void AppClass::Update(void)
 		CameraRotation();
 
 	//Rotation matrices
-	matrix4 rotX = glm::rotate(IDENTITY_M4, m_v3Orientation.x, REAXISX);
-	matrix4 rotY = glm::rotate(IDENTITY_M4, m_v3Orientation.y, REAXISY);
-	matrix4 rotZ = glm::rotate(IDENTITY_M4, m_v3Orientation.z, REAXISZ);
+	//matrix4 rotX = glm::rotate(IDENTITY_M4, m_v3Orientation.x, REAXISX);
+	//matrix4 rotY = glm::rotate(IDENTITY_M4, m_v3Orientation.y, REAXISY);
+	//matrix4 rotZ = glm::rotate(IDENTITY_M4, m_v3Orientation.z, REAXISZ);
 
 	//linear combination
-	m_mToWorld = rotX * rotY * rotZ;
+	m_mToWorld = glm::quat(vector3(glm::radians(x), glm::radians(y), glm::radians(z)));
 
 	//Setting the model matrix
-	m_pMeshMngr->SetModelMatrix(m_mToWorld, "Steve");
+	m_pMeshMngr->SetModelMatrix(ToMatrix4(m_mToWorld), "Steve");
 
 	//Adding the instance to the render list
 	m_pMeshMngr->AddInstanceToRenderList("Steve");
@@ -43,11 +48,11 @@ void AppClass::Update(void)
 	m_pMeshMngr->PrintLine("");
 	m_pMeshMngr->PrintLine(m_pSystem->GetAppName(), REYELLOW);
 	m_pMeshMngr->Print("X:", REYELLOW);
-	m_pMeshMngr->PrintLine(std::to_string(m_v3Orientation.x), RERED);
+	m_pMeshMngr->PrintLine(std::to_string(x), RERED);
 	m_pMeshMngr->Print("Y:", REYELLOW);
-	m_pMeshMngr->PrintLine(std::to_string(m_v3Orientation.y), RERED);
+	m_pMeshMngr->PrintLine(std::to_string(y), RERED);
 	m_pMeshMngr->Print("Z:", REYELLOW);
-	m_pMeshMngr->PrintLine(std::to_string(m_v3Orientation.z), RERED);
+	m_pMeshMngr->PrintLine(std::to_string(z), RERED);
 
 	m_pMeshMngr->Print("FPS:");
 	m_pMeshMngr->Print(std::to_string(nFPS), RERED);

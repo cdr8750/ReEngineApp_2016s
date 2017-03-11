@@ -23,23 +23,37 @@ void AppClass::ProcessKeyboard(void)
 
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::R))
 	{
-		m_v3Orientation = vector3(0.0f);
+		//Reset rotation angles
+		x = 0.0f;
+		y = 0.0f;
+		z = 0.0f;
+
+		//m_v3Orientation = vector3(0.0f);
 	}
 
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::X))
 	{
-		if (!bModifier) m_v3Orientation.x += 1.0f;
-		else m_v3Orientation.x -= 1.0f;
+		if (!bModifier) x += 1.0f;
+		else x -= 1.0f;
+
+		//if (!bModifier) m_v3Orientation.x += 1.0f;
+		//else m_v3Orientation.x -= 1.0f;
 	}
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Y))
 	{
-		if (!bModifier) m_v3Orientation.y += 1.0f;
-		else m_v3Orientation.y -= 1.0f;
+		if (!bModifier) y += 1.0f;
+		else y -= 1.0f;
+
+		//if (!bModifier) m_v3Orientation.y += 1.0f;
+		//else m_v3Orientation.y -= 1.0f;
 	}
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Z))
 	{
-		if (!bModifier) m_v3Orientation.z += 1.0f;
-		else m_v3Orientation.z -= 1.0f;
+		if (!bModifier) z += 1.0f;
+		else z -= 1.0f;
+
+		//if (!bModifier) m_v3Orientation.z += 1.0f;
+		//else m_v3Orientation.z -= 1.0f;
 	}
 
 #pragma region Camera Positioning
