@@ -1,7 +1,7 @@
 #include "AppClass.h"
 void AppClass::InitWindow(String a_sWindowName)
 {
-	super::InitWindow("SLERP - YOUR USER NAME GOES HERE"); // Window Name
+	super::InitWindow("SLERP - Cedric Robinson"); // Window Name
 
 	//Setting the color to black
 	m_v4ClearColor = vector4(0.0f);
@@ -106,7 +106,7 @@ void AppClass::Display(void)
 	}
 	
 	m_pMeshMngr->Render(); //renders the render list
-
+	m_pMeshMngr->ClearRenderList();//Reset the Render list after render
 	m_pGLSystem->GLSwapBuffers(); //Swaps the OpenGL buffers
 }
 
