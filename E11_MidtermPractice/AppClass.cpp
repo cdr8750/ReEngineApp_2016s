@@ -29,8 +29,8 @@ void AppClass::Update(void)
 	else {
 		xv = 4.0f - glm::lerp(0.0f, 4.0f, fTimer);
 	}
-	matrix4 transMat = glm::mat4(glm::translate(0.0f,xv,0.0f));
-	matrix4 rotMat = glm::mat4(glm::rotate(IDENTITY_M4, angle, vector3(0.0,0.0,1.0)));
+	glm::mat4 transMat = glm::mat4(glm::translate(0.0f,xv,0.0f));
+	glm::mat4 rotMat = glm::mat4(glm::rotate(IDENTITY_M4, angle, vector3(0.0,0.0,1.0)));
 
 	if (fTimer >= 1.0) {
 		start = dTotalTime;

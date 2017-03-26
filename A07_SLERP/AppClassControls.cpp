@@ -43,6 +43,34 @@ void AppClass::ProcessKeyboard(void)
 		m_pCameraMngr->MoveVertical(fSpeed);
 #pragma endregion
 
+#pragma region MY CODE FOR SUN MOVEMENT
+	//Key Presses for Sun Movement
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::X)) {
+		if (bModifier) {
+			sunPos.x--;
+		}
+		else {
+			sunPos.x++;
+		}
+	}
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Y)) {
+		if (bModifier) {
+			sunPos.y--;
+		}
+		else {
+			sunPos.y++;
+		}
+	}
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Z)) {
+		if (bModifier) {
+			sunPos.z--;
+		}
+		else {
+			sunPos.z++;
+		}
+	}
+#pragma endregion
+
 #pragma region Other Actions
 	ON_KEY_PRESS_RELEASE(Escape, NULL, PostMessage(m_pWindow->GetHandler(), WM_QUIT, NULL, NULL));
 	ON_KEY_PRESS_RELEASE(F1, NULL, m_pCameraMngr->SetCameraMode(CAMPERSP));

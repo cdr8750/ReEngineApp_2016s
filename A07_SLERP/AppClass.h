@@ -14,6 +14,8 @@ class AppClass : public ReEngAppClass
 {
 	float m_fDay = 1.0f; //How much time in seconds a day lasts;
 
+	vector3 sunPos = vector3(0.0f, 0.0f, 0.0f);//Position of the sun
+
 public:
 	typedef ReEngAppClass super;
 	/*

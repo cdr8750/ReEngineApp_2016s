@@ -47,10 +47,41 @@ void AppClass::Update(void)
 	float fEarthHalfRevTime = 0.5f * m_fDay; // Move for Half a day
 	float fMoonHalfOrbTime = 14.0f * m_fDay; //Moon's orbit is 28 earth days, so half the time for half a route
 
+
+
+#pragma region THIS IS MY CODE
+
+	glm::mat4 m4Sun = glm::mat4(glm::translate(sunPos)) * glm::mat4(glm::scale(5.936, 5.936, 5.936));
+	glm::mat4 m4Earth = glm::mat4(glm::translate(11, 0, 0)) * glm::mat4(glm::scale(0.524, 0.524, 0.524));
+	glm::mat4 m4Moon = glm::mat4(glm::translate(2, 0, 0)) * glm::mat4(glm::scale((0.524 * 0.27), (0.524 * 0.27), (0.524 * 0.27)));
+
+	glm::quat start = glm::quat(vector3(0, 0, 0));
+	glm::quat end = glm::quat(vector3(0, glm::radians(359.0f), 0));
+
+	static double fStart = 0.0;
+	static double eStart = 0.0;
+	static double mStart = 0.0;
+	
+	float fTimer = MapValue((float)(fRunTime - fStart), 0.0f, fEarthHalfRevTime * 2, 0.0f, 1.0f);
+	float eTimer = MapValue(fRunTime - eStart, 0.0, fEarthHalfOrbTime * 2, 0.0, 1.0);
+	float mTimer = MapValue((float)(fRunTime - mStart), 0.0f, fMoonHalfOrbTime * 2, 0.0f, 1.0f);
+
+	glm::quat m5Earth = glm::mix(start, end, fTimer);
+	glm::quat m7Earth = glm::mix(start, end, eTimer);
+
+	glm::quat m5Moon = glm::mix(start, end, mTimer);
+	
+	m4Earth = glm::mat4(glm::translate(sunPos)) * glm::mat4_cast(m7Earth) * (m4Earth * glm::mat4_cast(m5Earth));
+	m4Moon = glm::mat4(glm::translate(sunPos)) * glm::mat4_cast(m7Earth) * glm::mat4(glm::translate(11, 0, 0)) * glm::mat4_cast(m5Moon) * (m4Moon * glm::mat4_cast(m5Moon));
+
+#pragma endregion
+
+
+
 	//Setting the matrices
-	m_pMeshMngr->SetModelMatrix(IDENTITY_M4, "Sun");
-	m_pMeshMngr->SetModelMatrix(IDENTITY_M4, "Earth");
-	m_pMeshMngr->SetModelMatrix(IDENTITY_M4, "Moon");
+	m_pMeshMngr->SetModelMatrix(m4Sun, "Sun");
+	m_pMeshMngr->SetModelMatrix(m4Earth, "Earth");
+	m_pMeshMngr->SetModelMatrix(m4Moon, "Moon");
 
 	//Adds all loaded instance to the render list
 	m_pMeshMngr->AddInstanceToRenderList("ALL");
@@ -58,6 +89,24 @@ void AppClass::Update(void)
 	static int nEarthOrbits = 0;
 	static int nEarthRevolutions = 0;
 	static int nMoonOrbits = 0;
+
+#pragma region MY INCREMENTATION CODE
+
+	//Incrementations
+	if (fTimer >= 1.0) {
+		fStart = fRunTime;
+		nEarthRevolutions++;
+	}
+	if (eTimer >= 1.0) {
+		eStart = fRunTime;
+		nEarthOrbits++;
+	}
+	if (mTimer >= 1.0) {
+		mStart = fRunTime;
+		nMoonOrbits++;
+	}
+
+#pragma endregion
 
 	//Indicate the FPS
 	int nFPS = m_pSystem->GetFPS();
