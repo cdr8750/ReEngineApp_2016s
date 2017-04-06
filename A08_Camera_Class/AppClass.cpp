@@ -7,6 +7,8 @@ void AppClass::InitWindow(String a_sWindowName)
 }
 void AppClass::InitVariables(void)
 {
+	ArcBall();
+
 	//Generate the Cone
 	m_pCone = new PrimitiveClass();
 	m_pCone->GenerateCone(100.0f, 100.0f, 10, RERED);
