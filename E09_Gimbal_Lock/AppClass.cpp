@@ -45,7 +45,7 @@ void AppClass::Update(void)
 	m_pMeshMngr->AddInstanceToRenderList("Steve");
 
 	int nFPS = m_pSystem->GetFPS();
-	m_pMeshMngr->PrintLine("");
+	m_pMeshMngr->PrintLine("");//Add a line on top
 	m_pMeshMngr->PrintLine(m_pSystem->GetAppName(), REYELLOW);
 	m_pMeshMngr->Print("X:", REYELLOW);
 	m_pMeshMngr->PrintLine(std::to_string(x), RERED);

@@ -31,6 +31,7 @@ void AppClass::Update(void)
 	//Call the arcball method
 	ArcBall();
 
+<<<<<<< HEAD
 	matrix4 m4Translate = glm::translate(vector3(1.0, 0.0, 0.0));
 	matrix4 m4Sphere = glm::translate(m_pBS0->m_v3Center) * 
 		glm::scale(vector3(m_pBS0->m_fRadius) * 2.0f);
@@ -39,6 +40,14 @@ void AppClass::Update(void)
 	//Set the model matrix for the first model to be the arcball
 	m_pMeshMngr->SetModelMatrix(glm::translate(vector3(1, 0, 0)), "Zombie");
 	
+=======
+	//set the translate to create the transform matrix
+	matrix4 m4Translate = glm::translate(m_v3Position);
+	m_pMeshMngr->SetModelMatrix(m4Translate, "Zombie"); //set the matrix to the model
+	m_pBS0->RenderSphere();//render the bounding sphere
+
+
+>>>>>>> 3a599dd642348e48a93f58a5cdd8a50114af0a2c
 	//Adds all loaded instance to the render list
 	m_pMeshMngr->AddSkyboxToRenderList();
 	m_pMeshMngr->AddInstanceToRenderList("ALL");
@@ -48,16 +57,17 @@ void AppClass::Update(void)
 	//print info into the console
 	//printf("FPS: %d            \r", nFPS);//print the Frames per Second
 	//Print info on the screen
+	m_pMeshMngr->PrintLine("");//Add a line on top
 	m_pMeshMngr->PrintLine(m_pSystem->GetAppName(), REYELLOW);
 
 	m_pMeshMngr->Print("Radius: ");
 	m_pMeshMngr->PrintLine(std::to_string(m_pBS0->m_fRadius), RERED);
 	m_pMeshMngr->Print("Center: (");
-	m_pMeshMngr->Print(std::to_string(m_pBS0->m_v3Center.x), RERED);
+	m_pMeshMngr->Print(std::to_string(m_pBS0->m_v3CenterGlobal.x), RERED);
 	m_pMeshMngr->Print(" , ");
-	m_pMeshMngr->Print(std::to_string(m_pBS0->m_v3Center.y), RERED);
+	m_pMeshMngr->Print(std::to_string(m_pBS0->m_v3CenterGlobal.y), RERED);
 	m_pMeshMngr->Print(" , ");
-	m_pMeshMngr->Print(std::to_string(m_pBS0->m_v3Center.z), RERED);
+	m_pMeshMngr->Print(std::to_string(m_pBS0->m_v3CenterGlobal.z), RERED);
 	m_pMeshMngr->PrintLine(")");
 
 	m_pMeshMngr->Print("FPS:");

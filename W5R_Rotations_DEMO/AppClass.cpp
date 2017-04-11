@@ -74,10 +74,14 @@ void AppClass::Update(void)
 	//print info into the console
 	//printf("FPS: %d            \r", nFPS);//print the Frames per Second
 	//Print info on the screen
+<<<<<<< HEAD
 //<<<<<<< HEAD
 //=======
 	m_pMeshMngr->PrintLine("");
 //>>>>>>> d8eda33aa6d12cbf7e14147db00d4a8e46d8a8a7
+=======
+	m_pMeshMngr->PrintLine("");//Add a line on top
+>>>>>>> 3a599dd642348e48a93f58a5cdd8a50114af0a2c
 	m_pMeshMngr->PrintLine(m_pSystem->GetAppName(), REYELLOW);
 
 	m_pMeshMngr->Print("Selection: ");
