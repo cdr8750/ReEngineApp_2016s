@@ -30,8 +30,11 @@ void AppClass::Update(void)
 
 	//Call the arcball method
 	ArcBall();
+
+	matrix4 m4Translate = glm::translate(vector3(1.0, 0.0, 0.0));
 	matrix4 m4Sphere = glm::translate(m_pBS0->m_v3Center) * 
 		glm::scale(vector3(m_pBS0->m_fRadius) * 2.0f);
+
 	m_pMeshMngr->AddSphereToRenderList(m4Sphere, RERED, WIRE);
 	//Set the model matrix for the first model to be the arcball
 	m_pMeshMngr->SetModelMatrix(glm::translate(vector3(1, 0, 0)), "Zombie");

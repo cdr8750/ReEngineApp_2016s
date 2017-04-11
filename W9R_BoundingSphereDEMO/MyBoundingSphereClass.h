@@ -7,6 +7,9 @@ public:
 	float m_fRadius = 0.0f;
 	vector3 m_v3Center = vector3(0.0f);
 
+	MeshManagerSingleton* pMeshMngr = nullptr;
 	MyBoundingSphereClass(std::vector<vector3> vertexList);
+
+	void RenderSphere();
 
 };

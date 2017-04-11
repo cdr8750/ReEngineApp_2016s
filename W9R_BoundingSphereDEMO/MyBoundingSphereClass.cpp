@@ -52,4 +52,6 @@ MyBoundingSphereClass::MyBoundingSphereClass(std::vector<vector3> vertexList)
 			m_fRadius = distance;
 	}
 	*/
+
+	pMeshMngr = MeshDrawerSingleton::GetInstance();
 }
