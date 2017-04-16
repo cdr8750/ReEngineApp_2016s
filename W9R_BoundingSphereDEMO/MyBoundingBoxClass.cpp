@@ -43,10 +43,8 @@ MyBoundingBoxClass::MyBoundingBoxClass(std::vector<vector3> vertexList)
 	}
 
 	m_v3CenterLocal = m_v3CenterGlobal = (m_v3Max + m_v3Min) / 2.0f;
-<<<<<<< HEAD
 
-//<<<<<<< HEAD
-	m_fRadius = glm::distance(m_v3Center, m_v3Max);
+	//m_fRadius = glm::distance(m_v3Center, m_v3Max);
 	/*
 	for (int i = 0; i < vertexList.size(); i++)
 	{
@@ -57,7 +55,6 @@ MyBoundingBoxClass::MyBoundingBoxClass(std::vector<vector3> vertexList)
 	*/
 
 	//pMeshMngr = MeshDrawerSingleton::GetInstance();
-//=======
 	m_fRadius = glm::distance(m_v3CenterGlobal, m_v3Max);
 
 	m_pMeshMngr = MeshManagerSingleton::GetInstance();
@@ -68,7 +65,7 @@ MyBoundingBoxClass::MyBoundingBoxClass(std::vector<vector3> vertexList)
 
 	m_v3MinG = m_v3Min;
 	m_v3MaxG = m_v3Max;
-=======
+
 	m_fRadius = glm::distance(m_v3CenterGlobal, m_v3Max);
 	m_pMeshMngr = MeshManagerSingleton::GetInstance();
 	m_v3Size = m_v3Max - m_v3Min;
@@ -79,7 +76,7 @@ MyBoundingBoxClass::MyBoundingBoxClass(std::vector<vector3> vertexList)
 	//m_v3Size.x = glm::distance(vector3(m_v3Min.x, 0.0, 0.0), vector3(m_v3Max.x, 0.0, 0.0));
 	//m_v3Size.y = glm::distance(vector3(0.0, m_v3Min.y, 0.0), vector3(0.0, m_v3Max.y, 0.0));
 	//m_v3Size.z = glm::distance(vector3(0.0, 0.0, m_v3Min.z), vector3(0.0, 0.0, m_v3Max.z));
->>>>>>> 1916e612cfe8ad2068b2a3999ca9918819abc11a
+
 }
 
 void MyBoundingBoxClass::RenderSphere()
@@ -89,20 +86,22 @@ void MyBoundingBoxClass::RenderSphere()
 		v3Color = RERED;
 
 	m_pMeshMngr->AddCubeToRenderList(
-<<<<<<< HEAD
+
 		glm::translate(m_v3CenterGlobal) *
 		glm::scale(vector3(m_fRadius) * 2.0f), v3Color, WIRE);
 
 	//m_pMeshMngr->AddSphereToRenderList(
 	//	glm::translate(m_v3CenterGlobal) *
 	//	glm::scale(vector3(m_fRadius) * 2.0f), v3Color, WIRE);
-=======
-		m_m4ToWorld *
-		glm::translate(m_v3CenterLocal) *
-		glm::scale(m_v3Size),
-		v3Color, WIRE);
->>>>>>> 1916e612cfe8ad2068b2a3999ca9918819abc11a
+
+		//m_m4ToWorld *
+		//glm::translate(m_v3CenterLocal) *
+		//glm::scale(m_v3Size),
+		//v3Color, WIRE
+		//);
+
 }
+
 void MyBoundingBoxClass::SetModelMatrix(matrix4 a_m4ToWorld)
 {
 	if (m_m4ToWorld == a_m4ToWorld)
@@ -110,14 +109,12 @@ void MyBoundingBoxClass::SetModelMatrix(matrix4 a_m4ToWorld)
 
 	m_m4ToWorld = a_m4ToWorld;
 	m_v3CenterGlobal = vector3(m_m4ToWorld * vector4(m_v3CenterLocal, 1.0f));
-<<<<<<< HEAD
+
 
 	m_v3MinG = vector3(m_m4ToWorld * vector4(m_v3Min, 1.0f));
 	m_v3MaxG = vector3(m_m4ToWorld * vector4(m_v3Max, 1.0f));
-//<<<<<<< HEAD
-//>>>>>>> 3a599dd642348e48a93f58a5cdd8a50114af0a2c
+
 }
-//=======
 
 
 bool MyBoundingBoxClass::IsColliding(MyBoundingBoxClass* a_other)
@@ -126,7 +123,7 @@ bool MyBoundingBoxClass::IsColliding(MyBoundingBoxClass* a_other)
 		return false;
 	if (this->m_v3MinG.x > a_other->m_v3MaxG.x)
 		return false;
-=======
+
 	m_v3MinG = vector3(m_m4ToWorld * vector4(m_v3Min, 1.0f));
 	m_v3MaxG = vector3(m_m4ToWorld * vector4(m_v3Max, 1.0f));
 }
@@ -138,27 +135,21 @@ bool MyBoundingBoxClass::IsColliding(MyBoundingBoxClass* a_other)
 	if (this->m_v3MinG.x > a_other->m_v3MaxG.x)
 		return false;
 
->>>>>>> 1916e612cfe8ad2068b2a3999ca9918819abc11a
 	if (this->m_v3MaxG.y < a_other->m_v3MinG.y)
 		return false;
 	if (this->m_v3MinG.y > a_other->m_v3MaxG.y)
 		return false;
-<<<<<<< HEAD
-=======
 
->>>>>>> 1916e612cfe8ad2068b2a3999ca9918819abc11a
 	if (this->m_v3MaxG.z < a_other->m_v3MinG.z)
 		return false;
 	if (this->m_v3MinG.z > a_other->m_v3MaxG.z)
 		return false;
 
-<<<<<<< HEAD
+
 	//float fDistance = glm::distance(this->m_v3CenterGlobal, a_other->m_v3CenterGlobal);
 	//float fRadiiSum = this->m_fRadius + a_other->m_fRadius;
 	//return fDistance < fRadiiSum;
 
-=======
->>>>>>> 1916e612cfe8ad2068b2a3999ca9918819abc11a
 	return true;
 }
 
@@ -170,9 +161,8 @@ bool MyBoundingBoxClass::GetColliding(void) { return m_bColliding; }
 vector3 MyBoundingBoxClass::GetCenterLocal(void) { return m_v3CenterLocal; }
 vector3 MyBoundingBoxClass::GetCenterGlobal(void) { return m_v3CenterGlobal; }
 float MyBoundingBoxClass::GetRadius(void) { return m_fRadius; }
-<<<<<<< HEAD
+
 matrix4 MyBoundingBoxClass::GetModelMatrix(void) { return m_m4ToWorld; }
-//>>>>>>> 53d98d80ff1895dbe81dd532db734594399fa723
-=======
+
 matrix4 MyBoundingBoxClass::GetModelMatrix(void) { return m_m4ToWorld; }
->>>>>>> 1916e612cfe8ad2068b2a3999ca9918819abc11a
+
