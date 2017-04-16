@@ -7,6 +7,10 @@ Date: 2015/09 (Last Modified on: 15/11)
 
 #include "RE\ReEngAppClass.h"
 #include <SFML\Graphics.hpp>
+<<<<<<< HEAD
+=======
+#include "MyBoundingSphereClass.h"
+>>>>>>> 1916e612cfe8ad2068b2a3999ca9918819abc11a
 #include "MyBoundingBoxClass.h"
 
 using namespace ReEng; //Using ReEng namespace to use all the classes in the dll
