@@ -16,9 +16,9 @@ void AppClass::InitVariables(void)
 	m_pMeshMngr->LoadModel("Minecraft\\Steve.obj", "Steve");
 	m_pMeshMngr->LoadModel("Minecraft\\Cow.obj", "Cow");
 	//creating bounding spheres for both models
-	m_pBS0 = new MyBoundingSphereClass(m_pMeshMngr->GetVertexList("Zombie"));
-	m_pBS1 = new MyBoundingSphereClass(m_pMeshMngr->GetVertexList("Steve"));
-	m_pBS2 = new MyBoundingSphereClass(m_pMeshMngr->GetVertexList("Cow"));
+	m_pBS0 = new MyBoundingBoxClass(m_pMeshMngr->GetVertexList("Zombie"));
+	m_pBS1 = new MyBoundingBoxClass(m_pMeshMngr->GetVertexList("Steve"));
+	m_pBS2 = new MyBoundingBoxClass(m_pMeshMngr->GetVertexList("Cow"));
 
 	matrix4 m4Position = glm::translate(vector3(3.0, 0.0, 0.0));
 	m_pMeshMngr->SetModelMatrix(m4Position, "Steve");
@@ -42,8 +42,8 @@ void AppClass::Update(void)
 	//Call the arcball method
 	ArcBall();
 
-<<<<<<< HEAD
-<<<<<<< HEAD
+//<<<<<<< HEAD
+//<<<<<<< HEAD
 	matrix4 m4Translate = glm::translate(vector3(1.0, 0.0, 0.0));
 	matrix4 m4Sphere = glm::translate(m_pBS0->m_v3Center) * 
 		glm::scale(vector3(m_pBS0->m_fRadius) * 2.0f);
@@ -52,8 +52,8 @@ void AppClass::Update(void)
 	//Set the model matrix for the first model to be the arcball
 	m_pMeshMngr->SetModelMatrix(glm::translate(vector3(1, 0, 0)), "Zombie");
 	
-=======
-=======
+//=======
+//=======
 	//Object Movement
 	static float fTimer = 0.0f;
 	static int nClock = m_pSystem->GenClock();
@@ -65,7 +65,7 @@ void AppClass::Update(void)
 	vector3 v3Current = glm::lerp(v3Start, v3End, fPercentage);
 	matrix4 mTranslation = glm::translate(v3Current);
 
->>>>>>> 53d98d80ff1895dbe81dd532db734594399fa723
+//>>>>>>> 53d98d80ff1895dbe81dd532db734594399fa723
 	//set the translate to create the transform matrix
 	matrix4 m4Transform = glm::translate(m_v3Position) * ToMatrix4(m_qArcBall);
 	m_pMeshMngr->SetModelMatrix(m4Transform, "Zombie"); //set the matrix to the model
@@ -106,7 +106,7 @@ void AppClass::Update(void)
 		std::swap(v3Start, v3End);
 	}
 
->>>>>>> 3a599dd642348e48a93f58a5cdd8a50114af0a2c
+//>>>>>>> 3a599dd642348e48a93f58a5cdd8a50114af0a2c
 	//Adds all loaded instance to the render list
 	m_pMeshMngr->AddSkyboxToRenderList();
 	m_pMeshMngr->AddInstanceToRenderList("ALL");

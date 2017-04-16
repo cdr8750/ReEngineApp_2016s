@@ -44,7 +44,7 @@ MyBoundingSphereClass::MyBoundingSphereClass(std::vector<vector3> vertexList)
 
 	m_v3CenterLocal = m_v3CenterGlobal = (v3Max + v3Min) / 2.0f;
 
-<<<<<<< HEAD
+//<<<<<<< HEAD
 	m_fRadius = glm::distance(m_v3Center, v3Max);
 	/*
 	for (int i = 0; i < vertexList.size(); i++)
@@ -55,8 +55,8 @@ MyBoundingSphereClass::MyBoundingSphereClass(std::vector<vector3> vertexList)
 	}
 	*/
 
-	pMeshMngr = MeshDrawerSingleton::GetInstance();
-=======
+	//pMeshMngr = MeshDrawerSingleton::GetInstance();
+//=======
 	m_fRadius = glm::distance(m_v3CenterGlobal, v3Max);
 
 	m_pMeshMngr = MeshManagerSingleton::GetInstance();
@@ -79,11 +79,11 @@ void MyBoundingSphereClass::SetModelMatrix(matrix4 a_m4ToWorld)
 
 	m_m4ToWorld = a_m4ToWorld;
 	m_v3CenterGlobal = vector3(m_m4ToWorld * vector4(m_v3CenterLocal, 1.0f));
-<<<<<<< HEAD
->>>>>>> 3a599dd642348e48a93f58a5cdd8a50114af0a2c
+//<<<<<<< HEAD
+//>>>>>>> 3a599dd642348e48a93f58a5cdd8a50114af0a2c
 }
-=======
-}
+//=======
+//}
 
 bool MyBoundingSphereClass::IsColliding(MyBoundingSphereClass* a_other)
 {
@@ -101,4 +101,4 @@ vector3 MyBoundingSphereClass::GetCenterLocal(void) { return m_v3CenterLocal; }
 vector3 MyBoundingSphereClass::GetCenterGlobal(void) { return m_v3CenterGlobal; }
 float MyBoundingSphereClass::GetRadius(void) { return m_fRadius; }
 matrix4 MyBoundingSphereClass::GetModelMatrix(void) { return m_m4ToWorld; }
->>>>>>> 53d98d80ff1895dbe81dd532db734594399fa723
+//>>>>>>> 53d98d80ff1895dbe81dd532db734594399fa723
