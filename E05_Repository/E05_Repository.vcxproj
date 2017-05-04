@@ -11,9 +11,15 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
+<<<<<<< HEAD:E05_Repository/E05_Repository.vcxproj
     <ProjectGuid>{73A28B32-DED9-4C3E-BFB7-6E7370C8241A}</ProjectGuid>
     <RootNamespace>E05_Repository</RootNamespace>
     <ProjectName>E05_Repository</ProjectName>
+=======
+    <ProjectGuid>{625922B3-FF5F-49AF-84A3-8E4BAD5B8DC4}</ProjectGuid>
+    <RootNamespace>W09R_BoundingSphereDEMO</RootNamespace>
+    <ProjectName>W09R_BoundingSphereDEMO</ProjectName>
+>>>>>>> a48377b41bd2d7dcae27d5daaf94d6f2b1107393:W9R_BoundingSphereDEMO/W9R_BoundingSphereDEMO.vcxproj
     <WindowsTargetPlatformVersion>8.1</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
