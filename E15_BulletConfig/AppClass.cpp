@@ -126,7 +126,7 @@ void AppClass::Display(void)
 	}
 	
 	m_pMeshMngr->Render(); //renders the render list
-
+	m_pMeshMngr->ClearRenderList();
 	m_pGLSystem->GLSwapBuffers(); //Swaps the OpenGL buffers
 }
 
