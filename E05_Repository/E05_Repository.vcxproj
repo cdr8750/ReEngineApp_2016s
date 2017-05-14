@@ -19,8 +19,12 @@
     <ProjectGuid>{625922B3-FF5F-49AF-84A3-8E4BAD5B8DC4}</ProjectGuid>
     <RootNamespace>W09R_BoundingSphereDEMO</RootNamespace>
     <ProjectName>W09R_BoundingSphereDEMO</ProjectName>
+<<<<<<< HEAD:E05_Repository/E05_Repository.vcxproj
 >>>>>>> a48377b41bd2d7dcae27d5daaf94d6f2b1107393:W9R_BoundingSphereDEMO/W9R_BoundingSphereDEMO.vcxproj
     <WindowsTargetPlatformVersion>8.1</WindowsTargetPlatformVersion>
+=======
+    <WindowsTargetPlatformVersion>10.0.15063.0</WindowsTargetPlatformVersion>
+>>>>>>> 14d5d394a84a9218d57bd1ef931a4e0052a00f5d:W9R_BoundingSphereDEMO/W9R_BoundingSphereDEMO.vcxproj
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">

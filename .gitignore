@@ -13,4 +13,8 @@ Z_DELETE/
 =======
 tr.exe.stackdump
 Solution_VS15.sdf
+<<<<<<< HEAD
 >>>>>>> aca2fd6b26f52868bb90ff62332e51a50cbbc4bd
+=======
+.vs/
+>>>>>>> 14d5d394a84a9218d57bd1ef931a4e0052a00f5d
